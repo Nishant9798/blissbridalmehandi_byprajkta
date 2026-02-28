@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { name: 'Home', path: '/' },
   { name: 'Gallery', path: '/gallery' },
   { name: 'Book Now', path: '/booking' },
+  { name: 'Admin', path: '/admin' },
 ];
 
 export default function Navbar() {

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { ref, deleteObject } from 'firebase/storage';
-import { db, storage } from '../../config/firebase';
+import { db } from '../../config/firebase';
 import { useFirestoreCollection } from '../../hooks/useFirestore';
 import { CATEGORIES } from '../../utils/constants';
 import { HiPencil, HiTrash, HiCheck, HiX } from 'react-icons/hi';
@@ -20,9 +19,6 @@ export default function ImageManager() {
     if (!window.confirm(`Delete "${image.title}"? This cannot be undone.`)) return;
 
     try {
-      if (image.storagePath) {
-        await deleteObject(ref(storage, image.storagePath));
-      }
       await deleteDoc(doc(db, 'gallery', image.id));
       toast.success('Image deleted');
     } catch (err) {

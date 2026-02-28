@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { storage, db } from '../../config/firebase';
+import { db } from '../../config/firebase';
 import { CATEGORIES } from '../../utils/constants';
 import { HiCloudUpload, HiPhotograph } from 'react-icons/hi';
 import toast from 'react-hot-toast';
+
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 export default function ImageUpload() {
   const [file, setFile] = useState(null);
@@ -46,48 +48,61 @@ export default function ImageUpload() {
     }
 
     setUploading(true);
-    const storagePath = `gallery/${Date.now()}_${file.name}`;
-    const storageRef = ref(storage, storagePath);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    setProgress(0);
 
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-      },
-      (error) => {
-        console.error('Upload error:', error);
-        toast.error('Upload failed. Please try again.');
-        setUploading(false);
-        setProgress(0);
-      },
-      async () => {
-        try {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          await addDoc(collection(db, 'gallery'), {
-            title,
-            category,
-            description,
-            imageUrl: downloadURL,
-            storagePath,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-          });
-          toast.success('Image uploaded successfully!');
-          setFile(null);
-          setPreview(null);
-          setTitle('');
-          setCategory('');
-          setDescription('');
-          setProgress(0);
-        } catch (err) {
-          console.error('Firestore error:', err);
-          toast.error('Failed to save image data.');
-        } finally {
-          setUploading(false);
-        }
-      }
-    );
+    try {
+      // Upload to Cloudinary
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      formData.append('folder', 'gallery');
+
+      const xhr = new XMLHttpRequest();
+      const uploadUrl = await new Promise((resolve, reject) => {
+        xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            setProgress(Math.round((event.loaded / event.total) * 100));
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            const res = JSON.parse(xhr.responseText);
+            resolve(res.secure_url);
+          } else {
+            reject(new Error('Upload failed'));
+          }
+        };
+
+        xhr.onerror = () => reject(new Error('Upload failed'));
+        xhr.send(formData);
+      });
+
+      // Save to Firestore
+      await addDoc(collection(db, 'gallery'), {
+        title,
+        category,
+        description,
+        imageUrl: uploadUrl,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+
+      toast.success('Image uploaded successfully!');
+      setFile(null);
+      setPreview(null);
+      setTitle('');
+      setCategory('');
+      setDescription('');
+      setProgress(0);
+    } catch (err) {
+      console.error('Upload error:', err);
+      toast.error('Upload failed. Please try again.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const categories = CATEGORIES.filter((c) => c !== 'All');

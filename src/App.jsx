@@ -11,7 +11,7 @@ import NotFoundPage from './pages/NotFoundPage';
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/blissbridalmehandi_byprajkta">
         <Toaster
           position="top-center"
           toastOptions={{

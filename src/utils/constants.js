@@ -41,39 +41,6 @@ export const SERVICES = [
   },
 ];
 
-export const TESTIMONIALS = [
-  {
-    name: 'Sneha Patil',
-    event: 'Bridal Mehandi',
-    text: 'Prajkta did the most beautiful bridal mehandi for my wedding! Every guest complimented the designs. She was patient, professional, and incredibly talented.',
-    rating: 5,
-  },
-  {
-    name: 'Ananya Sharma',
-    event: 'Engagement Party',
-    text: 'The Arabic design she did for my engagement was stunning. The color came out so dark and lasted for weeks! Highly recommended.',
-    rating: 5,
-  },
-  {
-    name: 'Priya Deshmukh',
-    event: 'Karwa Chauth',
-    text: 'Loved the intricate traditional design! Prajkta is so creative and her attention to detail is amazing. Will definitely book again.',
-    rating: 5,
-  },
-  {
-    name: 'Ritika Joshi',
-    event: 'Wedding Reception',
-    text: 'Prajkta made my special day even more beautiful with her mehandi artistry. The designs were exactly what I had envisioned!',
-    rating: 5,
-  },
-  {
-    name: 'Meera Kulkarni',
-    event: 'Festival Mehandi',
-    text: 'Got mehandi done for Diwali and it was gorgeous! Quick, professional, and the designs were so neat. Love her work!',
-    rating: 4,
-  },
-];
-
 export const EVENT_TYPES = [
   'Bridal Mehandi',
   'Engagement',

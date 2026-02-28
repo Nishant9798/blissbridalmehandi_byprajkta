@@ -49,7 +49,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-cream/70 text-sm">
                 <FaMapMarkerAlt className="text-gold flex-shrink-0 mt-0.5" size={14} />
-                <span>Pune, Maharashtra, India</span>
+                <span>Mumbai, Maharashtra, India</span>
               </li>
             </ul>
           </div>

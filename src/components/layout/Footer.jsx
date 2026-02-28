@@ -59,6 +59,9 @@ export default function Footer() {
           <p className="text-cream/50 text-xs">
             &copy; {currentYear} Bliss Bridal Mehandi by Prajkta. All rights reserved.
           </p>
+          <Link to="/admin" className="text-cream/30 hover:text-gold text-xs mt-2 inline-block transition-colors">
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

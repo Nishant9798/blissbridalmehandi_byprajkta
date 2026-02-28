@@ -16,11 +16,8 @@ export default function Footer() {
               Expert bridal, Arabic, and traditional mehandi designs by Prajkta.
             </p>
             <div className="flex gap-4 mt-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-cream/60 hover:text-gold transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/blissbridalmehandi_byprajkta?igsh=dXpicGFhcDdwd2ph" target="_blank" rel="noopener noreferrer" className="text-cream/60 hover:text-gold transition-colors" aria-label="Instagram">
                 <FaInstagram size={20} />
-              </a>
-              <a href="https://wa.me/91" target="_blank" rel="noopener noreferrer" className="text-cream/60 hover:text-gold transition-colors" aria-label="WhatsApp">
-                <FaWhatsapp size={20} />
               </a>
             </div>
           </div>
@@ -39,10 +36,6 @@ export default function Footer() {
           <div>
             <h4 className="font-playfair text-lg font-semibold text-gold-light mb-4">Get in Touch</h4>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-cream/70 text-sm">
-                <FaPhone className="text-gold flex-shrink-0" size={14} />
-                <span>+91 XXXXX XXXXX</span>
-              </li>
               <li className="flex items-center gap-3 text-cream/70 text-sm">
                 <FaEnvelope className="text-gold flex-shrink-0" size={14} />
                 <span>blissbridalmehandi@gmail.com</span>

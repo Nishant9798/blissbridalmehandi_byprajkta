@@ -4,6 +4,7 @@ import { db, firebaseConfigured } from '../../config/firebase';
 import { validateBookingForm } from '../../utils/validators';
 import { EVENT_TYPES } from '../../utils/constants';
 import toast from 'react-hot-toast';
+import { sendBookingNotification } from '../../utils/emailService';
 import BookingSuccess from './BookingSuccess';
 import Button from '../ui/Button';
 
@@ -55,6 +56,11 @@ export default function BookingForm() {
       });
       setSubmitted(true);
       toast.success('Booking submitted successfully!');
+
+      // Send email notification to owner (non-blocking)
+      sendBookingNotification(formData).catch((err) =>
+        console.error('Email notification failed:', err)
+      );
     } catch (err) {
       console.error('Booking error:', err);
       toast.error('Failed to submit booking. Please try again.');

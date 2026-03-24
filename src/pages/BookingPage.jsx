@@ -1,7 +1,10 @@
 import BookingForm from '../components/booking/BookingForm';
 import SectionHeading from '../components/ui/SectionHeading';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function BookingPage() {
+  useScrollReveal();
+
   return (
     <div className="pt-20 md:pt-24">
       <section className="section-padding bg-cream-light min-h-screen">

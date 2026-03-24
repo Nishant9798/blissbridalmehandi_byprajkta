@@ -1,4 +1,5 @@
 import Button from '../ui/Button';
+import FloatingParticles from '../ui/FloatingParticles';
 
 export default function Hero() {
   return (
@@ -12,10 +13,19 @@ export default function Hero() {
       {/* Radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,163,56,0.15)_0%,_transparent_70%)]" />
 
-      {/* Decorative circles */}
-      <div className="absolute top-20 left-10 w-32 h-32 border border-gold/20 rounded-full" />
-      <div className="absolute bottom-32 right-10 w-48 h-48 border border-gold/10 rounded-full" />
-      <div className="absolute top-1/3 right-1/4 w-20 h-20 border border-gold/15 rounded-full" />
+      {/* Floating decorative circles */}
+      <div className="absolute top-20 left-10 w-32 h-32 border border-gold/20 rounded-full animate-float" />
+      <div className="absolute bottom-32 right-10 w-48 h-48 border border-gold/10 rounded-full animate-float-slow" />
+      <div className="absolute top-1/3 right-1/4 w-20 h-20 border border-gold/15 rounded-full animate-float-slower" />
+      <div className="absolute bottom-1/4 left-1/4 w-24 h-24 border border-gold/10 rounded-full animate-float-slow" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/4 right-10 w-16 h-16 border border-gold/20 rounded-full animate-float" style={{ animationDelay: '3s' }} />
+
+      {/* Slowly spinning decorative ring */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] border border-gold/5 rounded-full animate-spin-slow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[550px] md:h-[550px] border border-gold/5 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse' }} />
+
+      {/* Floating golden particles */}
+      <FloatingParticles />
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -25,7 +35,7 @@ export default function Hero() {
         <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 animate-slide-up">
           Bliss Bridal Mehandi
         </h1>
-        <p className="font-vibes text-gold-light text-2xl md:text-4xl mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <p className="font-vibes text-shimmer text-2xl md:text-4xl mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           by Prajkta
         </p>
         <p className="font-poppins text-cream/80 text-base md:text-lg max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
@@ -39,6 +49,13 @@ export default function Hero() {
           <Button to="/gallery" variant="outline-white">
             View Gallery
           </Button>
+        </div>
+      </div>
+
+      {/* Animated scroll indicator */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 animate-bounce-gentle">
+        <div className="w-6 h-10 border-2 border-gold/40 rounded-full flex justify-center">
+          <div className="w-1.5 h-3 bg-gold/60 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
 

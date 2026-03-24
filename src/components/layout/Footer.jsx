@@ -16,7 +16,7 @@ export default function Footer() {
               Expert bridal, Arabic, and traditional mehandi designs by Prajkta.
             </p>
             <div className="flex gap-4 mt-4">
-              <a href="https://www.instagram.com/blissbridalmehandi_byprajkta?igsh=dXpicGFhcDdwd2ph" target="_blank" rel="noopener noreferrer" className="text-cream/60 hover:text-gold transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/blissbridalmehandi_byprajkta?igsh=dXpicGFhcDdwd2ph" target="_blank" rel="noopener noreferrer" className="text-cream/60 hover:text-gold hover:scale-125 transition-all duration-300" aria-label="Instagram">
                 <FaInstagram size={20} />
               </a>
             </div>
@@ -26,9 +26,9 @@ export default function Footer() {
           <div>
             <h4 className="font-playfair text-lg font-semibold text-gold-light mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><Link to="/" className="text-cream/70 hover:text-gold transition-colors text-sm">Home</Link></li>
-              <li><Link to="/gallery" className="text-cream/70 hover:text-gold transition-colors text-sm">Gallery</Link></li>
-              <li><Link to="/booking" className="text-cream/70 hover:text-gold transition-colors text-sm">Book Appointment</Link></li>
+              <li><Link to="/" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Home</Link></li>
+              <li><Link to="/gallery" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Gallery</Link></li>
+              <li><Link to="/booking" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Book Appointment</Link></li>
             </ul>
           </div>
 
@@ -36,12 +36,12 @@ export default function Footer() {
           <div>
             <h4 className="font-playfair text-lg font-semibold text-gold-light mb-4">Get in Touch</h4>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-cream/70 text-sm">
-                <FaEnvelope className="text-gold flex-shrink-0" size={14} />
+              <li className="flex items-center gap-3 text-cream/70 text-sm group">
+                <FaEnvelope className="text-gold flex-shrink-0 group-hover:scale-110 transition-transform" size={14} />
                 <span>blissbridalmehandi@gmail.com</span>
               </li>
-              <li className="flex items-start gap-3 text-cream/70 text-sm">
-                <FaMapMarkerAlt className="text-gold flex-shrink-0 mt-0.5" size={14} />
+              <li className="flex items-start gap-3 text-cream/70 text-sm group">
+                <FaMapMarkerAlt className="text-gold flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={14} />
                 <span>Mumbai, Maharashtra, India</span>
               </li>
             </ul>

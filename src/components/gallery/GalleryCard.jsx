@@ -1,14 +1,15 @@
-export default function GalleryCard({ image, onClick }) {
+export default function GalleryCard({ image, onClick, index = 0 }) {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white"
+      className="scroll-reveal-scale group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white"
+      style={{ transitionDelay: `${(index % 6) * 0.1}s` }}
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <img
           src={image.imageUrl}
           alt={image.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-maroon/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

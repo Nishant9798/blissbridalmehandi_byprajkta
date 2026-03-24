@@ -1,5 +1,41 @@
+import { useEffect, useRef, useState } from 'react';
 import { FaPalette, FaHeart, FaStar } from 'react-icons/fa';
 import SectionHeading from '../ui/SectionHeading';
+
+function AnimatedCounter({ target, suffix = '' }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const duration = 1500;
+          const steps = 40;
+          const increment = target / steps;
+          let current = 0;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              setCount(target);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(current));
+            }
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function About() {
   return (
@@ -13,12 +49,12 @@ export default function About() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center mt-8">
           {/* Image placeholder */}
-          <div className="scroll-reveal">
+          <div className="scroll-reveal-left">
             <div className="relative">
               <div className="bg-gradient-to-br from-gold/20 to-maroon/20 rounded-2xl p-1">
                 <div className="bg-cream rounded-2xl overflow-hidden aspect-[3/4] flex items-center justify-center">
                   <div className="text-center p-8">
-                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-gold to-maroon flex items-center justify-center mb-4">
+                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-gold to-maroon flex items-center justify-center mb-4 animate-pulse-glow">
                       <span className="font-vibes text-white text-5xl">P</span>
                     </div>
                     <p className="font-vibes text-gold text-2xl">Prajkta</p>
@@ -33,7 +69,7 @@ export default function About() {
           </div>
 
           {/* Bio */}
-          <div className="scroll-reveal" style={{ transitionDelay: '0.2s' }}>
+          <div className="scroll-reveal-right">
             <h3 className="font-vibes text-gold text-3xl mb-4">My Journey</h3>
             <p className="text-gray-600 leading-relaxed mb-4">
               With years of experience in the art of mehandi, I have had the privilege of being part of countless
@@ -47,19 +83,25 @@ export default function About() {
             </p>
 
             <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-white rounded-xl shadow-sm">
-                <FaPalette className="text-gold mx-auto mb-2" size={24} />
-                <p className="font-playfair font-bold text-maroon text-lg">500+</p>
+              <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <FaPalette className="text-gold mx-auto mb-2 animate-bounce-gentle" size={24} />
+                <p className="font-playfair font-bold text-maroon text-lg">
+                  <AnimatedCounter target={500} suffix="+" />
+                </p>
                 <p className="text-gray-500 text-xs">Designs Created</p>
               </div>
-              <div className="text-center p-4 bg-white rounded-xl shadow-sm">
-                <FaHeart className="text-gold mx-auto mb-2" size={24} />
-                <p className="font-playfair font-bold text-maroon text-lg">300+</p>
+              <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <FaHeart className="text-gold mx-auto mb-2 animate-bounce-gentle" style={{ animationDelay: '0.3s' }} size={24} />
+                <p className="font-playfair font-bold text-maroon text-lg">
+                  <AnimatedCounter target={300} suffix="+" />
+                </p>
                 <p className="text-gray-500 text-xs">Happy Brides</p>
               </div>
-              <div className="text-center p-4 bg-white rounded-xl shadow-sm">
-                <FaStar className="text-gold mx-auto mb-2" size={24} />
-                <p className="font-playfair font-bold text-maroon text-lg">5+</p>
+              <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <FaStar className="text-gold mx-auto mb-2 animate-bounce-gentle" style={{ animationDelay: '0.6s' }} size={24} />
+                <p className="font-playfair font-bold text-maroon text-lg">
+                  <AnimatedCounter target={5} suffix="+" />
+                </p>
                 <p className="text-gray-500 text-xs">Years Experience</p>
               </div>
             </div>

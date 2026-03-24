@@ -50,6 +50,7 @@ export default function GalleryGrid() {
             <GalleryCard
               key={image.id}
               image={image}
+              index={index}
               onClick={() => setModalIndex(index)}
             />
           ))}

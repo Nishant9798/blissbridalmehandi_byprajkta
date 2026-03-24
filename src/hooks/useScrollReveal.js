@@ -13,7 +13,8 @@ export function useScrollReveal() {
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    const elements = document.querySelectorAll('.scroll-reveal');
+    const selectors = '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale';
+    const elements = document.querySelectorAll(selectors);
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();

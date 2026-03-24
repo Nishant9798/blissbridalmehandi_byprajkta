@@ -1,7 +1,10 @@
 import GalleryGrid from '../components/gallery/GalleryGrid';
 import SectionHeading from '../components/ui/SectionHeading';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function GalleryPage() {
+  useScrollReveal();
+
   return (
     <div className="pt-20 md:pt-24">
       <section className="section-padding bg-cream-light">

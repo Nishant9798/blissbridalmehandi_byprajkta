@@ -17,8 +17,22 @@ const INITIAL_FORM = {
   message: '',
 };
 
-export default function BookingForm() {
-  const [formData, setFormData] = useState(INITIAL_FORM);
+function FloatingField({ label, error, children }) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{label}</label>
+      {children}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
+  );
+}
+
+export default function BookingForm({ preselectedDate, preselectedPackage }) {
+  const [formData, setFormData] = useState({
+    ...INITIAL_FORM,
+    eventDate: preselectedDate || '',
+    message: preselectedPackage ? `Interested in: ${preselectedPackage}` : '',
+  });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -57,7 +71,6 @@ export default function BookingForm() {
       setSubmitted(true);
       toast.success('Booking submitted successfully!');
 
-      // Send email notification to owner (non-blocking)
       sendBookingNotification(formData).catch((err) =>
         console.error('Email notification failed:', err)
       );
@@ -75,20 +88,25 @@ export default function BookingForm() {
     setSubmitted(false);
   };
 
+  const handleDateSelect = (date) => {
+    setFormData((prev) => ({ ...prev, eventDate: date }));
+    if (errors.eventDate) {
+      setErrors((prev) => ({ ...prev, eventDate: '' }));
+    }
+  };
+
   if (submitted) {
     return <BookingSuccess onReset={handleReset} />;
   }
 
   const inputClass = (field) =>
     `w-full px-4 py-3 rounded-lg border ${
-      errors[field] ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-white'
-    } focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors font-poppins text-sm`;
+      errors[field] ? 'border-red-400 bg-red-50 dark:bg-red-900/20' : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-dark-surface'
+    } focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all font-poppins text-sm dark:text-cream placeholder:text-gray-400 dark:placeholder:text-gray-500`;
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
-      {/* Name */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5" onDateSelect={handleDateSelect}>
+      <FloatingField label="Full Name *" error={errors.name}>
         <input
           type="text"
           name="name"
@@ -97,14 +115,11 @@ export default function BookingForm() {
           placeholder="Enter your full name"
           className={inputClass('name')}
         />
-        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-      </div>
+      </FloatingField>
 
-      {/* Mobile */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number *</label>
+      <FloatingField label="Mobile Number *" error={errors.mobile}>
         <div className="flex">
-          <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-200 bg-gray-50 text-gray-500 text-sm">
+          <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-dark-card text-gray-500 dark:text-gray-400 text-sm">
             +91
           </span>
           <input
@@ -117,12 +132,9 @@ export default function BookingForm() {
             className={`${inputClass('mobile')} rounded-l-none`}
           />
         </div>
-        {errors.mobile && <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>}
-      </div>
+      </FloatingField>
 
-      {/* Address */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Address *</label>
+      <FloatingField label="Address *" error={errors.address}>
         <input
           type="text"
           name="address"
@@ -131,13 +143,10 @@ export default function BookingForm() {
           placeholder="Event / home address"
           className={inputClass('address')}
         />
-        {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
-      </div>
+      </FloatingField>
 
-      {/* Event Date & Type */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Event Date *</label>
+        <FloatingField label="Event Date *" error={errors.eventDate}>
           <input
             type="date"
             name="eventDate"
@@ -146,10 +155,8 @@ export default function BookingForm() {
             min={new Date().toISOString().split('T')[0]}
             className={inputClass('eventDate')}
           />
-          {errors.eventDate && <p className="text-red-500 text-xs mt-1">{errors.eventDate}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Event Type *</label>
+        </FloatingField>
+        <FloatingField label="Event Type *" error={errors.eventType}>
           <select
             name="eventType"
             value={formData.eventType}
@@ -161,13 +168,10 @@ export default function BookingForm() {
               <option key={type} value={type}>{type}</option>
             ))}
           </select>
-          {errors.eventType && <p className="text-red-500 text-xs mt-1">{errors.eventType}</p>}
-        </div>
+        </FloatingField>
       </div>
 
-      {/* Message */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Message (Optional)</label>
+      <FloatingField label="Message (Optional)">
         <textarea
           name="message"
           value={formData.message}
@@ -176,7 +180,7 @@ export default function BookingForm() {
           rows={4}
           className={inputClass('message')}
         />
-      </div>
+      </FloatingField>
 
       <Button type="submit" variant="secondary" disabled={submitting} className="w-full">
         {submitting ? 'Submitting...' : 'Book Appointment'}

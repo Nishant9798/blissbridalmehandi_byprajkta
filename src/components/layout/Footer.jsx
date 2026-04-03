@@ -28,6 +28,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link to="/" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Home</Link></li>
               <li><Link to="/gallery" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Gallery</Link></li>
+              <li><Link to="/pricing" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Pricing</Link></li>
               <li><Link to="/booking" className="text-cream/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-300 text-sm">Book Appointment</Link></li>
             </ul>
           </div>

@@ -6,7 +6,11 @@
 
 @layer base {
   body {
-    @apply font-poppins text-gray-800 bg-cream-light antialiased m-0;
+    @apply font-poppins text-gray-800 bg-cream-light antialiased m-0 transition-colors duration-300;
+  }
+
+  html.dark body {
+    @apply bg-dark-bg text-gray-200;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -138,12 +142,36 @@
   background-size: 200% auto;
 }
 
+/* Ripple effect */
+.ripple-span {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: ripple 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Blur-up image loading */
+.blur-up {
+  filter: blur(20px);
+  transition: filter 0.5s ease-out;
+}
+
+.blur-up.loaded {
+  filter: blur(0);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: #FDF0D5;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #1a1a2e;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -157,4 +185,18 @@
 
 .mehndi-pattern {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23D4A33820' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3Cpath d='M30 10 L30 50 M10 30 L50 30' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Floating label styles */
+.floating-label-input:focus ~ .floating-label,
+.floating-label-input:not(:placeholder-shown) ~ .floating-label {
+  transform: translateY(-1.5rem) scale(0.85);
+  color: #D4A338;
+  background: white;
+  padding: 0 4px;
+}
+
+html.dark .floating-label-input:focus ~ .floating-label,
+html.dark .floating-label-input:not(:placeholder-shown) ~ .floating-label {
+  background: #2d2d44;
 }

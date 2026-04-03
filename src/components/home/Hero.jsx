@@ -64,7 +64,7 @@ export default function Hero() {
         <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path
             d="M0 60L48 55C96 50 192 40 288 38C384 36 480 42 576 50C672 58 768 68 864 65C960 62 1056 46 1152 40C1248 34 1344 38 1392 40L1440 42V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V60Z"
-            fill="#FEF7EB"
+            className="fill-cream-light dark:fill-dark-bg"
           />
         </svg>
       </div>

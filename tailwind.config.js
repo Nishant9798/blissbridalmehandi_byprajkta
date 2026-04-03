@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -25,6 +26,9 @@ export default {
         rose: {
           deep: '#C2185B',
         },
+        'dark-bg': '#1a1a2e',
+        'dark-surface': '#2d2d44',
+        'dark-card': '#252540',
       },
       fontFamily: {
         playfair: ['"Playfair Display"', 'serif'],
@@ -46,6 +50,7 @@ export default {
         'slide-in-right': 'slideInRight 0.7s ease-out forwards',
         'bounce-gentle': 'bounceGentle 2s ease-in-out infinite',
         'particle-rise': 'particleRise 4s ease-in-out infinite',
+        'ripple': 'ripple 0.6s ease-out forwards',
       },
       keyframes: {
         fadeIn: {
@@ -93,6 +98,10 @@ export default {
           '20%': { opacity: '1', transform: 'translateY(0) scale(1)' },
           '80%': { opacity: '1', transform: 'translateY(-20px) scale(1)' },
           '100%': { opacity: '0', transform: 'translateY(-40px) scale(0)' },
+        },
+        ripple: {
+          '0%': { transform: 'scale(0)', opacity: '0.5' },
+          '100%': { transform: 'scale(4)', opacity: '0' },
         },
       },
     },

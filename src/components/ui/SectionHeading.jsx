@@ -6,11 +6,11 @@ export default function SectionHeading({ subtitle, title, description, light = f
           {subtitle}
         </p>
       )}
-      <h2 className={`font-playfair text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? 'text-white' : 'text-maroon'}`}>
+      <h2 className={`font-playfair text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? 'text-white' : 'text-maroon dark:text-cream'}`}>
         {title}
       </h2>
       {description && (
-        <p className={`max-w-2xl mx-auto text-base md:text-lg ${light ? 'text-cream/80' : 'text-gray-600'}`}>
+        <p className={`max-w-2xl mx-auto text-base md:text-lg ${light ? 'text-cream/80' : 'text-gray-600 dark:text-gray-400'}`}>
           {description}
         </p>
       )}

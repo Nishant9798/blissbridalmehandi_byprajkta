@@ -1,19 +1,23 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import ImageUpload from './ImageUpload';
 import ImageManager from './ImageManager';
 import BookingList from './BookingList';
-import { HiUpload, HiPhotograph, HiCalendar, HiLogout } from 'react-icons/hi';
+import LoadingSpinner from '../ui/LoadingSpinner';
+
+const AnalyticsDashboard = lazy(() => import('./AnalyticsDashboard'));
+import { HiUpload, HiPhotograph, HiCalendar, HiLogout, HiChartBar } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 
 const TABS = [
+  { id: 'analytics', label: 'Analytics', icon: HiChartBar },
   { id: 'upload', label: 'Upload Image', icon: HiUpload },
   { id: 'manage', label: 'Manage Images', icon: HiPhotograph },
   { id: 'bookings', label: 'View Bookings', icon: HiCalendar },
 ];
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('upload');
+  const [activeTab, setActiveTab] = useState('analytics');
   const { logout } = useAuth();
 
   const handleLogout = async () => {
@@ -64,7 +68,12 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tab content */}
-        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
+        <div className={`${activeTab === 'analytics' ? '' : 'bg-white rounded-xl border border-gray-200 p-4 sm:p-6'}`}>
+          {activeTab === 'analytics' && (
+            <Suspense fallback={<LoadingSpinner size="lg" className="py-12" />}>
+              <AnalyticsDashboard />
+            </Suspense>
+          )}
           {activeTab === 'upload' && <ImageUpload />}
           {activeTab === 'manage' && <ImageManager />}
           {activeTab === 'bookings' && <BookingList />}
